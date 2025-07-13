@@ -1,6 +1,6 @@
 --- type_support_common.hpp.orig	2025-07-13 03:00:00.000000000 +0900
 +++ type_support_common.hpp	2025-07-13 03:10:00.000000000 +0900
-@@ -54,10 +54,18 @@
+@@ -55,11 +55,17 @@
  inline std::string
  _create_type_name(
    std::string message_namespace,
@@ -20,7 +20,3 @@
 +  ret += "dds_::" + message_name + "_";
 +  return ret;
  }
- 
- inline std::string
- _create_type_name(
-   const message_type_support_callbacks_t * members)
