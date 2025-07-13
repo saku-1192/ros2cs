@@ -203,7 +203,7 @@ if(STANDALONE_BUILD)
       # Get cyclonedds DDSC
       if("${_library_name}" STREQUAL "CycloneDDS")
         if(WIN32)
-          if(NOT ros2_distro STREQUAL "humble")
+          if(NOT ros2_distro STREQUAL "jazzy")
             fetch_target_lib(CycloneDDS::ddsc)
             list(APPEND REQ_STANDALONE_LIBS 
               ${CycloneDDS_ddsc_LIB_PATH})
@@ -231,14 +231,14 @@ if(STANDALONE_BUILD)
         include(${${_library_name}_CONFIG})
         fetch_target_lib(spdlog::spdlog)
         list(APPEND REQ_STANDALONE_LIBS ${spdlog_spdlog_LIB_PATH})
-        if(ros2_distro STREQUAL "humble")
+        if(ros2_distro STREQUAL "jazzy")
           fetch_target_lib(fmt::fmt)
           list(APPEND REQ_STANDALONE_LIBS ${fmt_fmt_LIB_PATH})
         endif()
       endif()
 
-      # Get rmw_cyclonedds_cpp for humble
-      if("${_library_name}" STREQUAL "rmw_cyclonedds_cpp" AND (ros2_distro STREQUAL "humble" OR ros2_distro STREQUAL "rolling"))
+      # Get rmw_cyclonedds_cpp for jazzy
+      if("${_library_name}" STREQUAL "rmw_cyclonedds_cpp" AND (ros2_distro STREQUAL "jazzy" OR ros2_distro STREQUAL "rolling"))
         fetch_target_lib(rmw_cyclonedds_cpp::rmw_cyclonedds_cpp)
         list(APPEND REQ_STANDALONE_LIBS ${rmw_cyclonedds_cpp_rmw_cyclonedds_cpp_LIB_PATH})
       endif()
