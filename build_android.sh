@@ -86,4 +86,5 @@ colcon build \
 --packages-ignore ${PKG_IGNORE} \
 --merge-install \
 --cmake-clean-cache \
+--symlink-install \
 --cmake-args ${ROS2CS_CMAKE_ARGS}

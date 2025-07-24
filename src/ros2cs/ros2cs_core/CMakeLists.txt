@@ -28,6 +28,7 @@ find_package(ros2cs_common REQUIRED)
 find_package(ament_cmake_export_assemblies REQUIRED)
 find_package(ament_cmake REQUIRED)
 find_package(dotnet_cmake_module REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 set(CSHARP_TARGET_FRAMEWORK "netstandard2.0")
 set(CSBUILD_TOOL "DotNetCore")
@@ -203,7 +204,7 @@ if(STANDALONE_BUILD)
       # Get cyclonedds DDSC
       if("${_library_name}" STREQUAL "CycloneDDS")
         if(WIN32)
-          if(NOT ros2_distro STREQUAL "jazzy")
+          if(NOT ros2_distro STREQUAL "humble")
             fetch_target_lib(CycloneDDS::ddsc)
             list(APPEND REQ_STANDALONE_LIBS 
               ${CycloneDDS_ddsc_LIB_PATH})
@@ -231,14 +232,14 @@ if(STANDALONE_BUILD)
         include(${${_library_name}_CONFIG})
         fetch_target_lib(spdlog::spdlog)
         list(APPEND REQ_STANDALONE_LIBS ${spdlog_spdlog_LIB_PATH})
-        if(ros2_distro STREQUAL "jazzy")
+        if(ros2_distro STREQUAL "humble")
           fetch_target_lib(fmt::fmt)
           list(APPEND REQ_STANDALONE_LIBS ${fmt_fmt_LIB_PATH})
         endif()
       endif()
 
-      # Get rmw_cyclonedds_cpp for jazzy
-      if("${_library_name}" STREQUAL "rmw_cyclonedds_cpp" AND (ros2_distro STREQUAL "jazzy" OR ros2_distro STREQUAL "rolling"))
+      # Get rmw_cyclonedds_cpp for humble
+      if("${_library_name}" STREQUAL "rmw_cyclonedds_cpp" AND (ros2_distro STREQUAL "humble" OR ros2_distro STREQUAL "jazzy" OR ros2_distro STREQUAL "rolling"))
         fetch_target_lib(rmw_cyclonedds_cpp::rmw_cyclonedds_cpp)
         list(APPEND REQ_STANDALONE_LIBS ${rmw_cyclonedds_cpp_rmw_cyclonedds_cpp_LIB_PATH})
       endif()
@@ -366,8 +367,8 @@ if(STANDALONE_BUILD)
     rmw
     FastRTPS
     rmw_fastrtps_cpp
-    # CycloneDDS
-    # rmw_cyclonedds_cpp
+    CycloneDDS
+    rmw_cyclonedds_cpp
     rmw_dds_common
     rmw_implementation
     rosidl_runtime_c
@@ -375,19 +376,19 @@ if(STANDALONE_BUILD)
     rosidl_typesupport_cpp
     rosidl_typesupport_introspection_c
     rosidl_typesupport_introspection_cpp
-    # spdlog
+    spdlog
     tracetools
-    yaml
+    yaml-cpp
     tinyxml2
   )
   
-  # if(UNIX AND NOT ros2_distro STREQUAL "foxy")
-  #   if(ros2_distro STREQUAL "galactic")
-  #     list(APPEND ros2_standalone_libs iceoryx_binding_c iceoryx_posh iceoryx_utils)
-  #   else()
-  #     list(APPEND ros2_standalone_libs iceoryx_binding_c iceoryx_posh iceoryx_hoofs)
-  #   endif()
-  # endif()
+  if(UNIX AND NOT ros2_distro STREQUAL "foxy")
+    if(ros2_distro STREQUAL "galactic")
+      list(APPEND ros2_standalone_libs iceoryx_binding_c iceoryx_posh iceoryx_utils)
+    else()
+      list(APPEND ros2_standalone_libs iceoryx_binding_c iceoryx_posh iceoryx_hoofs)
+    endif()
+  endif()
 
   foreach(ros2_standalone_lib ${ros2_standalone_libs})
     get_standalone_dependencies(${ros2_standalone_lib})
