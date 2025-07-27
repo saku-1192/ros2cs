@@ -145,3 +145,11 @@ repositories:
     type: git
     url: https://github.com/jbeder/yaml-cpp.git
     version: master
+  ros2/yaml_cpp_vendor:
+    type: git
+    url: https://github.com/ros2/yaml_cpp_vendor.git
+    version: jazzy
+  eigen/eigen3:
+    type: git
+    url: https://github.com/PX4/eigen.git
+    version: master
