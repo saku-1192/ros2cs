@@ -141,3 +141,7 @@ repositories:
     type: git
     url: https://github.com/ros2/rosidl_dynamic_typesupport_fastrtps.git
     version: jazzy
+  ros2/yaml-cpp:
+    type: git
+    url: https://github.com/jbeder/yaml-cpp.git
+    version: jazzy
