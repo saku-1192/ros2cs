@@ -144,4 +144,4 @@ repositories:
   ros2/yaml-cpp:
     type: git
     url: https://github.com/jbeder/yaml-cpp.git
-    version: jazzy
+    version: master
