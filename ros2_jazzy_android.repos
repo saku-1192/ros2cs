@@ -149,3 +149,8 @@ repositories:
     type: git
     url: https://github.com/jbeder/yaml-cpp.git
     version: master
+  ros2/pybind11_vendor:
+    type: git
+    url: https://github.com/ros2/pybind11_vendor.git
+    version: jazzy
+  
