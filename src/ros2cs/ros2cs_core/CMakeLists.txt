@@ -430,4 +430,18 @@ if(STANDALONE_BUILD)
   endif()
 endif()
 
+# [MODIFIED FOR ros2-for-unity-for-android] Copy common metadata into Unity Plugins
+install(FILES
+  "${CMAKE_CURRENT_BINARY_DIR}/ros2cs_core/assemblies/metadata_ros2cs.xml"
+  "${CMAKE_CURRENT_BINARY_DIR}/ros2cs_core/assemblies/metadata_ros2cs.xml.meta"
+  DESTINATION "${CMAKE_INSTALL_PREFIX}/asset/Ros2ForUnity/Plugins"
+)
+
+# [MODIFIED FOR ros2-for-unity-for-android] Copy ros2cs_core’s Android/Linux plugin folders
+install(DIRECTORY
+  "${CMAKE_CURRENT_BINARY_DIR}/ros2cs_core/assemblies/Android"
+  "${CMAKE_CURRENT_BINARY_DIR}/ros2cs_core/assemblies/Linux"
+  DESTINATION "${CMAKE_INSTALL_PREFIX}/asset/Ros2ForUnity/Plugins"
+)
+
 ament_package()
