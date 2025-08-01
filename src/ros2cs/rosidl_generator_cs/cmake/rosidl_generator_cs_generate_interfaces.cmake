@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# [MODIFIED FOR ros2cs-jazzy] Treat Android as Linux so that C# interfaces are generated
+if(CMAKE_SYSTEM_NAME STREQUAL "Android")
+  set(CMAKE_SYSTEM_NAME "Linux")
+endif()
+
 find_package(rosidl_generator_c REQUIRED)
 find_package(rosidl_typesupport_c REQUIRED)
 find_package(rosidl_typesupport_interface REQUIRED)
@@ -23,10 +28,12 @@ find_package(ros2cs_common REQUIRED)
 # Get a list of typesupport implementations from valid rmw implementations.
 rosidl_generator_cs_get_typesupports(_typesupport_impls)
 
-if(_typesupport_impls STREQUAL "")
-  message(WARNING "No valid typesupport for .NET generator. .NET messages will not be generated.")
-  return()
-endif()
+add_compile_options(-Wno-pointer-bool-conversion)
+
+# if(_typesupport_impls STREQUAL "")
+#   message(WARNING "No valid typesupport for .NET generator. .NET messages will not be generated.")
+#   return()
+# endif()
 
 set(_output_path "${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cs/${PROJECT_NAME}")
 set(_generated_msg_cs_files "")

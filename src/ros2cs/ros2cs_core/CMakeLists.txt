@@ -343,17 +343,36 @@ if(STANDALONE_BUILD)
         endif()
       endforeach()
 
-      # rpath for each standalone lib must be updated so all the libs will see each other
-      install(CODE 
-        "execute_process(COMMAND find ${CMAKE_INSTALL_PREFIX}/standalone -name *.so -exec patchelf --set-rpath $ORIGIN:. {} \;)"
+      # # rpath for each standalone lib must be updated so all the libs will see each other
+      # install(CODE 
+      #   "execute_process(COMMAND find ${CMAKE_INSTALL_PREFIX}/standalone -name *.so -exec patchelf --set-rpath $ORIGIN:. {} \;)"
+      # )
+      # # soversion files as well
+      # install(CODE 
+      #   "execute_process(COMMAND find ${CMAKE_INSTALL_PREFIX}/standalone -name *.so.* -exec patchelf --set-rpath $ORIGIN:. {} \;)"
+      # )
+      # # as well as custom resources
+      # install(CODE 
+      #   "execute_process(COMMAND find ${CMAKE_INSTALL_PREFIX}/resources -name *.so -exec patchelf --set-rpath $ORIGIN:. {} \;)"
+      # )
+      # [MODIFIED FOR ros2-for-unity-for-android]
+      install(CODE
+        "execute_process(COMMAND 
+          find \"${CMAKE_INSTALL_PREFIX}/standalone\" 
+          -name \"*.so\" 
+          -exec patchelf --set-rpath \"\\\$ORIGIN:.\" {} \"\\;\" )"
       )
-      # soversion files as well
-      install(CODE 
-        "execute_process(COMMAND find ${CMAKE_INSTALL_PREFIX}/standalone -name *.so.* -exec patchelf --set-rpath $ORIGIN:. {} \;)"
+      install(CODE
+        "execute_process(COMMAND
+          find \"${CMAKE_INSTALL_PREFIX}/standalone\"
+          -name \"*.so.*\"
+          -exec patchelf --set-rpath \"\\\$ORIGIN:.\" {} \"\\;\" )"
       )
-      # as well as custom resources
-      install(CODE 
-        "execute_process(COMMAND find ${CMAKE_INSTALL_PREFIX}/resources -name *.so -exec patchelf --set-rpath $ORIGIN:. {} \;)"
+      install(CODE
+     "execute_process(COMMAND
+        find \"${CMAKE_INSTALL_PREFIX}/resources\"
+        -name \"*.so\"
+        -exec patchelf --set-rpath \"\\\$ORIGIN:.\" {} \"\\;\" )"
       )
     endif()
   endmacro()
